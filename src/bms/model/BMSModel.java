@@ -82,6 +82,11 @@ public class BMSModel implements Comparable<BMSModel> {
 	 */
 	private int volwav;
 	/**
+	 * Used in DTX charts for panning the wav sounds
+	 * !!CURRENTLY UNUSED!! REQUIRES AUDIO MODIFICATION
+	 */
+	private int wavpan;
+	/**
 	 * MD5値
 	 */
 	private String md5 = "";
@@ -241,6 +246,12 @@ public class BMSModel implements Comparable<BMSModel> {
 
 	public void setVolwav(int volwav) {
 		this.volwav = volwav;
+	}
+
+	public int getWavPan() { return wavpan; }
+
+	public void setWavPan(int wavpan) {
+		this.wavpan = wavpan;
 	}
 
 	public double getMinBPM() {
