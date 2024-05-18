@@ -2,6 +2,7 @@ package bms.model;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 import bms.model.ChartDecoder.TimeLineCache;
 import bms.model.Layer.EventType;
@@ -295,31 +296,49 @@ public class Section {
 		for(String line : channellines) {
 			int channel = ChartDecoder.parseInt36(line.charAt(4), line.charAt(5));
 			int tmpkey = 0;
-			if(channel >= P1_KEY_BASE && channel < P1_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P1_KEY_BASE];
-				channel = P1_KEY_BASE;
-			} else if(channel >= P2_KEY_BASE && channel < P2_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P2_KEY_BASE + 9];
-				channel = P1_KEY_BASE;
-			} else if(channel >= P1_INVISIBLE_KEY_BASE && channel < P1_INVISIBLE_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P1_INVISIBLE_KEY_BASE];
-				channel = P1_INVISIBLE_KEY_BASE;
-			} else if(channel >= P2_INVISIBLE_KEY_BASE && channel < P2_INVISIBLE_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P2_INVISIBLE_KEY_BASE + 9];
-				channel = P1_INVISIBLE_KEY_BASE;
-			} else if(channel >= P1_LONG_KEY_BASE && channel < P1_LONG_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P1_LONG_KEY_BASE];
-				channel = P1_LONG_KEY_BASE;
-			} else if(channel >= P2_LONG_KEY_BASE && channel < P2_LONG_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P2_LONG_KEY_BASE + 9];
-				channel = P1_LONG_KEY_BASE;
-			} else if(channel >= P1_MINE_KEY_BASE && channel < P1_MINE_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P1_MINE_KEY_BASE];
-				channel = P1_MINE_KEY_BASE;
-			} else if(channel >= P2_MINE_KEY_BASE && channel < P2_MINE_KEY_BASE + 9) {
-				tmpkey = cassign[channel - P2_MINE_KEY_BASE + 9];
-				channel = P1_MINE_KEY_BASE;
+			if (model.getMode() == Mode.DTX) {
+				if (channel >= 37 && channel <= 46) {
+					// 11-1A <Drums notes>
+					tmpkey = channel - 37;
+					channel = P1_KEY_BASE;
+				} else if (channel >= 109 && channel <= 118) {
+					// 31-3A <Drums invisible object>
+					tmpkey = channel - 109;
+					channel = P1_INVISIBLE_KEY_BASE;
+				} else if (channel >= 217 && channel <= 326) {
+					// 61-69, 70-79, 80-89, 90-92 <Autoplay sound>
+				   	channel = P1_INVISIBLE_KEY_BASE;
+				} else {
+					// Genuinely have no idea what to do here ...
+				}
+			} else {
+				if (channel >= P1_KEY_BASE && channel < P1_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P1_KEY_BASE];
+					channel = P1_KEY_BASE;
+				} else if (channel >= P2_KEY_BASE && channel < P2_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P2_KEY_BASE + 9];
+					channel = P1_KEY_BASE;
+				} else if (channel >= P1_INVISIBLE_KEY_BASE && channel < P1_INVISIBLE_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P1_INVISIBLE_KEY_BASE];
+					channel = P1_INVISIBLE_KEY_BASE;
+				} else if (channel >= P2_INVISIBLE_KEY_BASE && channel < P2_INVISIBLE_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P2_INVISIBLE_KEY_BASE + 9];
+					channel = P1_INVISIBLE_KEY_BASE;
+				} else if (channel >= P1_LONG_KEY_BASE && channel < P1_LONG_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P1_LONG_KEY_BASE];
+					channel = P1_LONG_KEY_BASE;
+				} else if (channel >= P2_LONG_KEY_BASE && channel < P2_LONG_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P2_LONG_KEY_BASE + 9];
+					channel = P1_LONG_KEY_BASE;
+				} else if (channel >= P1_MINE_KEY_BASE && channel < P1_MINE_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P1_MINE_KEY_BASE];
+					channel = P1_MINE_KEY_BASE;
+				} else if (channel >= P2_MINE_KEY_BASE && channel < P2_MINE_KEY_BASE + 9) {
+					tmpkey = cassign[channel - P2_MINE_KEY_BASE + 9];
+					channel = P1_MINE_KEY_BASE;
+				}
 			}
+
 			final int key = tmpkey;
 			if(key == -1) {
 				continue;
