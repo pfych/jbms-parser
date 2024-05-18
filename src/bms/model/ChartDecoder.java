@@ -64,8 +64,7 @@ public abstract class ChartDecoder {
 		} else if (s.endsWith(".bmson")) {
 			return new BMSONDecoder(BMSModel.LNTYPE_LONGNOTE);
 		} else if (s.endsWith(".dtx")) {
-			// @TODO Custom Parser
-			return null;
+			return new DTXDecoder(BMSModel.LNTYPE_LONGNOTE);
 		}
 		return null;
 	}
