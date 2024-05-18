@@ -15,6 +15,7 @@ public enum Mode {
 	POPN_9K(9, "popn-9k", 1, 9, new int[] {}),
 	KEYBOARD_24K(25, "keyboard-24k", 1, 26, new int[] { 24, 25 }), 
 	KEYBOARD_24K_DOUBLE(50, "keyboard-24k-double", 2, 52, new int[] { 24, 25, 50, 51 }),
+	DTX(10, "dtx", 1, 10, new int[] {}),
 	;
 
 	public final int id;

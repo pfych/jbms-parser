@@ -207,7 +207,7 @@ public class Section {
 	
 	private void processData(String line, DataProcessor processor) {
 		final int base = model.getBase();
-		final int findex = line.indexOf(":") + 1;
+		final int findex = line.indexOf(":") + (model.getMode() == Mode.DTX ? 2 : 1); // DTX Places a space after ":"
 		final int lindex = line.length();
 		final int split = (lindex - findex) / 2;
 		int result;

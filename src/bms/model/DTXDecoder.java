@@ -110,7 +110,7 @@ public class DTXDecoder extends ChartDecoder {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(
 				new DigestInputStream(new DigestInputStream(new ByteArrayInputStream(data), md5digest), sha256digest),
 				"MS932"));) {
-			model.setMode(ispms ? Mode.POPN_9K : Mode.BEAT_5K);
+			model.setMode(Mode.DTX);
 			// Logger.getGlobal().info(
 			// "BMSデータ読み込み時間(ms) :" + (System.currentTimeMillis() - time));
 
