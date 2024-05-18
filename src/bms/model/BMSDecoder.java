@@ -529,6 +529,14 @@ enum CommandWord {
 		}
 		return null;
 	}),
+	BPM ((model, arg) -> {
+		try {
+			model.setBpm(Integer.parseInt(arg));
+		} catch (NumberFormatException e) {
+			return new DecodeLog(WARNING, "#BPMに数字が定義されていません");
+		}
+		return null;
+	}),
 	VOLWAV ((model, arg) -> {
 		try {
 			model.setVolwav(Integer.parseInt(arg));
@@ -537,6 +545,24 @@ enum CommandWord {
 		}
 		return null;
 	}),
+	VOLUME ((model, arg) -> { // DTX Specific
+		try {
+			Logger.getGlobal().info("PARSING VOLUME: " + arg);
+			model.setVolwav(Integer.parseInt(arg));
+		} catch (NumberFormatException e) {
+			return new DecodeLog(WARNING, "#VOLUMEに数字が定義されていません");
+		}
+		return null;
+	}),
+	WAVPAN ((model, arg) -> { // DTX Specific
+		try {
+			model.setWavPan(Integer.parseInt(arg));
+		} catch (NumberFormatException e) {
+			return new DecodeLog(WARNING, "#WAVPANに数字が定義されていません");
+		}
+		return null;
+	}),
+
 	STAGEFILE ((model, arg) -> {
 		model.setStagefile(arg.replace('\\', '/'));
 		return null;
